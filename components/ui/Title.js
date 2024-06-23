@@ -1,4 +1,4 @@
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Platform } from 'react-native';
 function Title({ children }) {
   return <Text style={styles.title}>{children}</Text>;
 }
@@ -12,7 +12,13 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
-    borderWidth: 2,
+    // borderWidth: Platform.OS === 'android' ? 2 : 0,
+    borderWidth: Platform.select({ ios: 0, android: 2 }),
+    //Another option available is making platform specfic files
+    //Ex. Title.android.js & Title.ios.js
+    //Change what is appropriate per each platform in each file
+    //NOTE: Ensure that when importing, you are targeting the base file
+    //Example import {Title} from ../components/ui/Title
     borderColor: 'white',
     padding: 12,
     marginTop: 5,
